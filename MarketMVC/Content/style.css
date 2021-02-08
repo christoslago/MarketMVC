@@ -1,0 +1,21 @@
+.alingSideBar{
+    margin-left: 0px !important;
+}
+
+.sideBar{
+padding-top: 20px;
+}
+
+.card{
+    padding-top: 10px;
+    border-style: none;
+}
+.card-img-top{
+width: 200px !important;
+height: 250px !important;
+}
+
+.Url {
+    text-decoration: none;
+    color: rgb(85,28,28);
+}

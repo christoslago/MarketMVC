@@ -1,0 +1,104 @@
+﻿@model MarketMVC.ViewModel.CreateProduct
+
+@{
+    ViewBag.Title = "Create";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Τυροκομικά",
+        Value = "Τυροκομικά"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Αλλαντικά",
+        Value = "Αλλαντικά"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Είδη Υγιεινής",
+        Value = "Είδη Υγιεινής"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Αηδίες",
+        Value = "Αηδίες"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Περιποίηση Σώματος",
+        Value = "Περιποίηση Σώματος"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Μαναβική",
+        Value = "Μαναβική"
+    });
+}
+
+<h2>Create</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="" alt="Profile Pic" class="" id="pic">
+        </div>
+        <div class="col-md-10">
+            @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Name)
+                    : @Html.TextBoxFor(model => Model.Product.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Brand)
+                    : @Html.TextBoxFor(model => Model.Product.Brand, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Brand, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Tag)
+                    : @Html.DropDownListFor(model => Model.Product.Tag, listItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Tag, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Price)
+                    : @Html.TextBoxFor(model => Model.Product.Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Price, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Pic, new { type = "file", onchange = "ChangePic(this)", accept = "image/jpeg" })
+                    @Html.ValidationMessageFor(model => Model.Pic, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+            function ChangePic(input) {
+                var pic = document.getElementById("pic");
+                var temp = pic.src;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        pic.src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    pic.src = temp;
+                }
+            }</script>
+}

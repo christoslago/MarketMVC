@@ -1,0 +1,74 @@
+﻿@model MarketMVC.ViewModel.EditProduct
+
+@{
+    ViewBag.Title = "Edit";
+
+}
+
+<h2>Edit</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Product.Pic)" alt="Profile Pic" class="" id="pic">
+        </div>
+        <div class="col-md-10">
+            @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Product.ID)
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Name)
+                    : @Html.EditorFor(model => Model.Product.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Brand)
+                    : @Html.EditorFor(model => Model.Product.Brand, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Brand, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Tag)
+                    : @Html.DropDownListFor(model => Model.Product.Tag, Model.listItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Tag, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Product.Price)
+                    : @Html.EditorFor(model => Model.Product.Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Product.Price, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Pic, new { type = "file", onchange = "ChangePic(this)", accept = "image/jpeg"})
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            }
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+            function ChangePic(input) {
+                var pic = document.getElementById("pic");
+                var temp = pic.src;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        pic.src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    pic.src = temp;
+                }
+            }</script>
+}
+
