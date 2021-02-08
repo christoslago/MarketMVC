@@ -3,22 +3,13 @@
 @{
     ViewBag.Title = "Details";
 }
-@Styles.Render("~/ContentResult/Styles.css")
+@Styles.Render("~/ContentResult/detailstyle.css")
 <h2>Details</h2>
 
 <div>
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Pic)
-        </dt>
-
-        <dd>
-
-            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Pic)" />
-
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,6 +18,10 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pic)
+        </dt>
 
         <dt>
             @Html.DisplayNameFor(model => model.Brand)
@@ -51,6 +46,14 @@
         <dd>
             @Html.DisplayFor(model => model.Tag)
         </dd>
+        <dd>
+
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.Pic)" />
+
+        </dd>
+
+
+
 
     </dl>
 </div>
